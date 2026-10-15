@@ -18,8 +18,7 @@ export const validateRegisterUser = [
     // matches me jo regex hai wo ye check karega ki contact number me sirf numbers hi ho, aur koi letters ya special characters na ho
     body("password").isLength({min: 6}).withMessage("Password must be at least 6 characters long"),
     body("fullName").isLength({min: 3, max: 100}).withMessage("Full name must be between 3 and 100 characters long"),
-    body("isSeller").isBoolean().withMessage("Seller must be a boolean value"),
 
-    
+
     validateRequest
 ]
