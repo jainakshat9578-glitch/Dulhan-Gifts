@@ -19,6 +19,12 @@ export const validateRegisterUser = [
     body("password").isLength({min: 6}).withMessage("Password must be at least 6 characters long"),
     body("fullName").isLength({min: 3, max: 100}).withMessage("Full name must be between 3 and 100 characters long"),
 
+    validateRequest
+]
 
+export const validateLoginUser = [
+    body("email").isEmail().withMessage("Email is not valid"),
+    body("password").notEmpty().isLength({min: 6}).withMessage("Password must be at least 6 characters long"),
+    
     validateRequest
 ]
