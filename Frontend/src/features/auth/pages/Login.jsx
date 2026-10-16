@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useAuth } from '../hook/useAuth'
+import ContinueWithGoogle from '../components/ContinueWithGoogle'
 
 const categories = [
   { label: 'Cosmetics', icon: '✳' },
@@ -144,6 +145,8 @@ export default function Login() {
               {isSubmitting ? 'Signing in…' : 'Login'}
             </button>
           </form>
+
+          <ContinueWithGoogle />
 
           <p className="mt-6 text-center text-sm text-stone-600">Don't have an account? <Link className="font-semibold text-stone-900 underline decoration-stone-300 underline-offset-4 hover:text-amber-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-800" to="/register">Register</Link></p>
         </div>

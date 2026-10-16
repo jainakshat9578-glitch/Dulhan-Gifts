@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../hook/useAuth'
 import { useNavigate } from 'react-router'
+import ContinueWithGoogle from '../components/ContinueWithGoogle'
 
 const categories = [
   { label: 'Cosmetics', icon: '✳' },
@@ -132,6 +133,8 @@ export default function Register() {
             </div>
             <button className="mt-1 flex h-12 cursor-pointer items-center justify-center rounded-lg bg-stone-950 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-stone-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900" type="submit">Register</button>
           </form>
+
+          <ContinueWithGoogle />
 
           <p className="mt-6 text-center text-sm text-stone-600">Already have an account? <a className="font-semibold text-stone-900 underline decoration-stone-300 underline-offset-4 hover:text-amber-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-800" href="/login">Login</a></p>
         </div>

@@ -3,10 +3,16 @@ import bcrypt from "bcryptjs"
 
 const userSchema = new mongoose.Schema({
      email: {type:String, required: true, unique: true},
-     contact: {type:String, required: true, unique: true},
-     password: {type:String, required: true},
+     contact: {type:String, required: false, unique: true},
+     password: {
+          type:String, 
+          required: function(){
+             return !this.googleId
+          }
+     },
      fullName: {type:String, required: true},
      role: {type:String, enum:["buyer","seller"], default: "buyer"},
+     googleId: {type: String,}
 })
 
 // pre-middleware-> DB me kuch bhi data save krne se pehle ye chalega!
