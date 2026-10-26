@@ -112,7 +112,10 @@ export default function Login() {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className={labelClassName} htmlFor="password">Password</label>
+              <div className="flex items-center justify-between">
+                <label className={labelClassName} htmlFor="password">Password</label>
+                <Link className="text-xs font-semibold text-amber-900 underline decoration-amber-900/30 underline-offset-4 hover:text-amber-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-800" to="/forgot-password">Forgot Password?</Link>
+              </div>
               <div className="relative">
                 <input
                   className={`${inputClassName} pr-16`}

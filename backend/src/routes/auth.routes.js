@@ -1,6 +1,6 @@
 import {Router} from "express"
 import {validateLoginUser, validateRegisterUser} from "../validators/auth.validator.js"
-import { googleCallback, Login, register } from "../controllers/auth.controller.js"
+import { googleCallback, Login, register,forgotPassword,resetPassword } from "../controllers/auth.controller.js"
 import passport from "passport"
 import { config } from "../config/config.js"
 
@@ -19,5 +19,8 @@ router.get("/google/callback",
     // this is responsible for exchanging user data from Auth code
     googleCallback
 )
+
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password/:token", resetPassword);
 
 export default router

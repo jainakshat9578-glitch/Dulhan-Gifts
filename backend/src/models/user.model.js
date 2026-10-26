@@ -12,7 +12,15 @@ const userSchema = new mongoose.Schema({
      },
      fullName: {type:String, required: true},
      role: {type:String, enum:["buyer","seller"], default: "buyer"},
-     googleId: {type: String,}
+     googleId: {type: String,},
+     resetPasswordToken: {
+         type: String,
+         default: undefined
+     },
+     resetPasswordExpires: {
+       type: Date,
+       default: undefined
+     }
 })
 
 // pre-middleware-> DB me kuch bhi data save krne se pehle ye chalega!
