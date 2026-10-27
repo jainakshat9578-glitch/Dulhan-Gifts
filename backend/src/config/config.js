@@ -25,6 +25,10 @@ if (!process.env.GMAIL_USER) {
   throw new Error("GMAIL_USER is missing in .env");
 }
 
+if(!process.env.IMAGEKIT_PRIVATE_KEY){
+    throw new Error("IMAGEKIT_PRIVATE_KEY is not defined in .env")
+}
+
 export const config = {
     MONGO_URI: process.env.MONGO_URI,
     JWT_SECRET: process.env.JWT_SECRET,
@@ -32,5 +36,6 @@ export const config = {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     GMAIL_REFRESH_TOKEN: process.env.GMAIL_REFRESH_TOKEN,
     GMAIL_USER: process.env.GMAIL_USER,
-    NODE_ENV: process.env.NODE_ENV || "development"
+    NODE_ENV: process.env.NODE_ENV || "development",
+    IMAGEKIT_PRIVATE_KEY: process.env.IMAGEKIT_PRIVATE_KEY
 }

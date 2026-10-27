@@ -6,14 +6,25 @@ const authApiInstance = axios.create({
 })
 
 export async function register({email,contact,password,fullName}){
-    const response = await authApiInstance.post("/register",{
-        email,
-        contact,
-        password,
-        fullName,
-        
-    })
-    return response.data
+    try {
+        const response = await authApiInstance.post("/register",{
+            email,
+            contact,
+            password,
+            fullName,
+        })
+        return response.data
+    } catch (error) {
+        const responseData = error.response?.data
+        const validationMessages = Array.isArray(responseData?.errors)
+            ? responseData.errors.map(({ msg }) => msg).filter(Boolean)
+            : []
+        const message = validationMessages.length
+            ? validationMessages.join(" ")
+            : responseData?.message
+
+        throw new Error(message || "Unable to create your account right now. Please try again.", { cause: error })
+    }
 }
 
 

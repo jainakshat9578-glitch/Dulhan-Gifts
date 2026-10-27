@@ -42,18 +42,34 @@ export default function Register() {
 
   const [form, setForm] = useState({ fullName: '', email: '', contact: '', password: '' })
   const [passwordVisible, setPasswordVisible] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const updateField = (event) => setForm((current) => ({ ...current, [event.target.name]: event.target.value }))
+  const updateField = (event) => {
+    setForm((current) => ({ ...current, [event.target.name]: event.target.value }))
+    setSubmitError('')
+  }
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
-    await handleRegister({
-       email:  form.email,
-       contact: form.contact,
-       password: form.password,
-       fullName: form.fullName
-    })
-    navigate("/")
+    setSubmitError('')
+    setIsSubmitting(true)
+    try {
+      await handleRegister({
+         email:  form.email,
+         contact: form.contact,
+         password: form.password,
+         fullName: form.fullName
+      })
+      navigate("/")
+    } catch (error) {
+      const message = error.message || 'Unable to create your account right now. Please try again.'
+      setSubmitError(message.includes('already exists')
+        ? 'This email or contact number is already registered. Please log in instead.'
+        : message)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -131,7 +147,8 @@ export default function Register() {
                 </button>
               </div>
             </div>
-            <button className="mt-1 flex h-12 cursor-pointer items-center justify-center rounded-lg bg-stone-950 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-stone-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900" type="submit">Register</button>
+            {submitError && <p className="m-0 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm leading-5 text-red-800" role="alert">{submitError}</p>}
+            <button className="mt-1 flex h-12 cursor-pointer items-center justify-center rounded-lg bg-stone-950 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-stone-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900 disabled:cursor-not-allowed disabled:opacity-60" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Creating account…' : 'Register'}</button>
           </form>
 
           <ContinueWithGoogle />

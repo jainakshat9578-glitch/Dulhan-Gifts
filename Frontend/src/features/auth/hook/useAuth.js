@@ -10,6 +10,7 @@ export const useAuth = ()=>{
         const data = await register({email,contact,fullName,password})
         
         dispatch(setUser(data.user))
+        return data
     }
 
     async function handleLogin({email,password}){

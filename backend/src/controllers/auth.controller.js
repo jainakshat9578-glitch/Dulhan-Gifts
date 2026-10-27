@@ -163,7 +163,7 @@ export const forgotPassword = async (req, res) => {
             .digest("hex");
 
         user.resetPasswordToken = hashedToken;
-        user.resetPasswordExpires = new Date(Date.now() + 15 * 60 * 1000);
+        user.resetPasswordExpires = new Date(Date.now() + 15 * 60 * 1000); //15 minute
 
         await user.save();
 
@@ -237,6 +237,9 @@ export const resetPassword = async (req, res) => {
         user.password = password;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
+// Purana reset link dobara use nahi ho sakta.
+// Token database mein valid credential ki tarah pada nahi rehta.
+// Password reset flow one-time use ke liye bana rehta hai.
 
         // 5. Save user; your pre-save middleware hashes the password
         await user.save();
