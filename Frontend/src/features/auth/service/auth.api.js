@@ -36,6 +36,11 @@ export async function Login({email,password}){
     return response.data
 }
 
+export async function getMe(){
+    const response = await authApiInstance.get("/me")
+
+    return response.data
+}
 
 export async function forgotPassword({ email }) {
     const response = await authApiInstance.post("/forgot-password", {

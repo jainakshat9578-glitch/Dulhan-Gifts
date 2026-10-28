@@ -30,8 +30,12 @@ export default function Login() {
     setIsSubmitting(true)
 
     try {
-      await handleLogin({ email: form.email, password: form.password })
+     const user = await handleLogin({ email: form.email, password: form.password })
+     if(user.role == "buyer"){
       navigate('/')
+     }else if(user.role == "seller"){
+      navigate("/seller/products")
+     }
     } catch (error) {
       const responseData = error.response?.data
       const validationMessage = Array.isArray(responseData?.errors)

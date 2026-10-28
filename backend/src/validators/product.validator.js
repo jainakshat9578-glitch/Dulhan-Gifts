@@ -5,6 +5,7 @@ function validateRequest(req,res,next){
 
     if(!errors.isEmpty()){
         return res.status(400).json({
+            success: false,
             message: "Validation error",
             errors: errors.array()
         })
@@ -13,9 +14,27 @@ function validateRequest(req,res,next){
 }
 
 export const createProductValidator = [
-    body("title").notEmpty().withMessage("Title is required"),
-    body("description").notEmpty().withMessage("description is required"),
-    body("priceAmount").notEmpty().withMessage("priceAmount is required"),
-    body("priceCurrency").notEmpty().withMessage("priceCurrency is required"),
+    body("title").trim().notEmpty().withMessage("Title is required"),
+    body("description").trim().notEmpty().withMessage("description is required"),
+    body("category")
+    .isIn([
+        "Cosmetics",
+        "Photo Frames",
+        "Home Decor",
+        "Stationery",
+        "Undergarments",
+        "Toys",
+        "Birthday Decor",
+        "Gifts",
+        "Food"
+    ])
+    .withMessage("Invalid product category"),
+    body("priceAmount").isFloat({gt:0}).withMessage("priceAmount is required and must be greater than zero").toFloat(),
+    
+    body("priceCurrency")
+    .optional({ values: "falsy" })
+    .isIn(["USD", "EUR", "GBP", "JPY", "INR"])
+    .withMessage("Invalid currency"),
+
     validateRequest
 ]

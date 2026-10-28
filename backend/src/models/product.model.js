@@ -10,6 +10,22 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    category: {
+       type: String,
+       required: true,
+       enum: [
+        "Cosmetics",
+        "Photo Frames",
+        "Home Decor",
+        "Stationery",
+        "Undergarments",
+        "Toys",
+        "Food",
+        'Birthday Decor',
+        "Gifts"
+    ]
+    },
+  
     seller: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',

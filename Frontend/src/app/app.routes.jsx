@@ -3,6 +3,10 @@ import Register from "../features/auth/pages/Register"
 import Login from "../features/auth/pages/Login"
 import ForgotPassword from "../features/auth/pages/ForgotPassword";
 import ResetPassword from "../features/auth/pages/ResetPassword";
+import CreateProduct from "../features/products/pages/CreateProduct";
+import SellerProducts from "../features/products/pages/SellerProducts";
+import SellerRouteGuard from "../features/products/components/SellerRouteGuard";
+import Protected from "../features/auth/components/Protected";
 
 export const routes = createBrowserRouter([
     {
@@ -24,5 +28,12 @@ export const routes = createBrowserRouter([
     {
          path: "/reset-password/:token",
          element: <ResetPassword />
+    },
+    {
+        element: <SellerRouteGuard />,
+        children: [
+            { path: "/seller/products", element: <Protected role="seller"> <SellerProducts /></Protected> },
+            { path: "/seller/products/new", element: <Protected role="seller"> <CreateProduct /> </Protected>}
+        ]
     }
 ])

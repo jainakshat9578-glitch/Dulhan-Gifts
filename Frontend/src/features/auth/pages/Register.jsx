@@ -61,7 +61,11 @@ export default function Register() {
          password: form.password,
          fullName: form.fullName
       })
-      navigate("/")
+      if(user.role == "buyer"){
+      navigate('/')
+     }else if(user.role == "seller"){
+      navigate("/seller/products")
+     }
     } catch (error) {
       const message = error.message || 'Unable to create your account right now. Please try again.'
       setSubmitError(message.includes('already exists')
