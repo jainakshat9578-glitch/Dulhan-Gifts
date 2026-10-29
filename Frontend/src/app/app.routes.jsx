@@ -7,11 +7,14 @@ import CreateProduct from "../features/products/pages/CreateProduct";
 import SellerProducts from "../features/products/pages/SellerProducts";
 import SellerRouteGuard from "../features/products/components/SellerRouteGuard";
 import Protected from "../features/auth/components/Protected";
+import Home from "../features/products/pages/Home";
+import ProductDetails from "../features/products/pages/ProductDetails";
+import SellerProductDetails from "../features/products/pages/SellerProductDetails";
 
 export const routes = createBrowserRouter([
     {
         path: "/",
-        element: <h1>Hello World</h1>
+        element: <Home />
     },
     {
         path: "/register",
@@ -30,10 +33,30 @@ export const routes = createBrowserRouter([
          element: <ResetPassword />
     },
     {
+        path: "/product/:productId",
+        element: <ProductDetails />
+    },
+    {
         element: <SellerRouteGuard />,
         children: [
-            { path: "/seller/products", element: <Protected role="seller"> <SellerProducts /></Protected> },
-            { path: "/seller/products/new", element: <Protected role="seller"> <CreateProduct /> </Protected>}
+            { 
+                path: "/seller/products", 
+                element: <Protected role="seller"> 
+                              <SellerProducts />
+                          </Protected> 
+            },
+            { 
+                path: "/seller/products/new", 
+                element: <Protected role="seller"> 
+                             <CreateProduct /> 
+                         </Protected>
+            },
+            {
+                path: "/seller/product/:productId", 
+                element: <Protected role="seller">
+                          <SellerProductDetails />
+                        </Protected>
+                }
         ]
     }
 ])

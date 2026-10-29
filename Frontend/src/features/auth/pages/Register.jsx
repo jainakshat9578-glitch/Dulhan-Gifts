@@ -55,7 +55,7 @@ export default function Register() {
     setSubmitError('')
     setIsSubmitting(true)
     try {
-      await handleRegister({
+      const user = await handleRegister({
          email:  form.email,
          contact: form.contact,
          password: form.password,

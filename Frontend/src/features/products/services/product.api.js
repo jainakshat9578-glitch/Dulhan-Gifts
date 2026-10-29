@@ -17,3 +17,22 @@ export async function getSellerProducts(){
 
     return response.data
 }
+
+export async function getAllProducts(){
+    const response = await productApiInstance.get("/")
+
+    return response.data
+}
+
+export async function getProductById(productId){
+    const response = await productApiInstance.get(`/detail/${encodeURIComponent(productId)}`)
+
+    return response.data
+}
+
+export async function getSellerProductById(productId){
+    const response = await productApiInstance.get(`/seller/${encodeURIComponent(productId)}`)
+
+    return response.data
+}
+

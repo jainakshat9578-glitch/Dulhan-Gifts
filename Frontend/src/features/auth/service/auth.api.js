@@ -5,6 +5,18 @@ const authApiInstance = axios.create({
     withCredentials: true
 })
 
+function normalizeAuthResponse(data) {
+    if (!data?.user) return data
+
+    return {
+        ...data,
+        user: {
+            ...data.user,
+            fullName: data.user.fullName || data.user.fullname
+        }
+    }
+}
+
 export async function register({email,contact,password,fullName}){
     try {
         const response = await authApiInstance.post("/register",{
@@ -13,7 +25,7 @@ export async function register({email,contact,password,fullName}){
             password,
             fullName,
         })
-        return response.data
+        return normalizeAuthResponse(response.data)
     } catch (error) {
         const responseData = error.response?.data
         const validationMessages = Array.isArray(responseData?.errors)
@@ -33,13 +45,13 @@ export async function Login({email,password}){
         email,
         password
     })
-    return response.data
+    return normalizeAuthResponse(response.data)
 }
 
 export async function getMe(){
     const response = await authApiInstance.get("/me")
 
-    return response.data
+    return normalizeAuthResponse(response.data)
 }
 
 export async function forgotPassword({ email }) {
