@@ -38,3 +38,50 @@ export const createProductValidator = [
 
     validateRequest
 ]
+
+
+export const createVariantValidator = [
+    body("priceAmount")
+        .optional({ values: "falsy" })
+        .isFloat({ gt: 0 })
+        .withMessage("Variant price must be greater than zero")
+        .toFloat(),
+
+    body("priceCurrency")
+        .optional({ values: "falsy" })
+        .isIn(["USD", "EUR", "GBP", "JPY", "INR"])
+        .withMessage("Invalid currency"),
+
+    body("stock")
+        .optional({ values: "falsy" })
+        .isInt({ min: 0 })
+        .withMessage("Stock must be a non-negative integer")
+        .toInt(),
+
+    body("attributes")
+        .optional({ values: "falsy" })
+        .isString()
+        .withMessage("Attributes must be a JSON string")
+        .bail()
+        .custom((value) => {
+            let parsed;
+
+            try {
+                parsed = JSON.parse(value);
+            } catch {
+                throw new Error("Attributes must contain valid JSON");
+            }
+
+            if (
+                parsed === null ||
+                typeof parsed !== "object" ||
+                Array.isArray(parsed)
+            ) {
+                throw new Error("Attributes must be a JSON object");
+            }
+
+            return true;
+        }),
+
+    validateRequest
+];

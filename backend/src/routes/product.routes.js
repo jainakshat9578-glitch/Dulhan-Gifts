@@ -2,7 +2,7 @@ import express from 'express'
 import { authenticateSeller } from '../middlewares/auth.middleware.js'
 import { createProduct, getAllProducts, getSellerProducts, getProductDetails, getSellerProductDetails, addProductVariant } from '../controllers/product.controller.js'
 import multer from "multer"
-import { createProductValidator } from '../validators/product.validator.js'
+import { createProductValidator, createVariantValidator } from '../validators/product.validator.js'
 
 
 const allowedMimeTypes = [
@@ -71,6 +71,6 @@ router.get("/detail/:id", getProductDetails)
  * @description Add a new variant to a product
  * @access Private (Seller Only)
  */
-router.post("/:productId/variants", authenticateSeller, upload.array('images',7),createProductValidator,addProductVariant)
+router.post("/:productId/variants", authenticateSeller, upload.array('images',7),createVariantValidator,addProductVariant)
 
 export default router

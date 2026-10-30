@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { createProduct,getSellerProducts, getAllProducts, getProductById, getSellerProductById, } from "../services/product.api";
+import { createProduct,getSellerProducts, getAllProducts, getProductById, getSellerProductById, addProductvariant, } from "../services/product.api";
 import { useDispatch } from "react-redux";
 import { setSellerProducts, setProducts, setProductsLoading, setProductsError, productDetailsRequested, productDetailsReceived, productDetailsFailed } from "../state/product.slice";
 
@@ -97,5 +97,11 @@ export const useProduct = ()=>{
     }
    }, [dispatch])
 
-   return {handleCreateProduct, handleGetSellerProduct, handleGetAllProducts, handleGetProductById, handleGetSellerProductById}
+   async function handleProductVariant(productId, newProductVariant){
+    const data = await addProductvariant(productId, newProductVariant)
+
+    return data
+   }
+
+   return {handleCreateProduct, handleGetSellerProduct, handleGetAllProducts, handleGetProductById, handleGetSellerProductById, handleProductVariant}
 }
